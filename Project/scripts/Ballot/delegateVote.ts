@@ -5,7 +5,8 @@ import { getSignerProvider, getWallet } from "./utils";
 
 async function main() {
   const contractAddress = process.argv[2];
-  const network = process.argv[3] || "localhost";
+  const delegateAddress = process.argv[3];
+  const network = process.argv[4] || "localhost";
 
   const wallet = getWallet();
 
@@ -17,23 +18,13 @@ async function main() {
     signer
   );
 
-  let index = 0;
-  let hasProposal = true;
-  while (hasProposal) {
-    try {
-      const proposal = await ballotContract.proposals(index);
+  console.log(`Delegating vote to ${delegateAddress}`);
+  const tx = await ballotContract.delegate(delegateAddress);
 
-      const proposalString = ethers.utils.parseBytes32String(proposal.name);
-      const proposalVoteCount = proposal.voteCount;
+  console.log("Awaiting confirmations");
+  await tx.wait();
 
-      console.log(
-        `Proposal ${index}: ${proposalString}, vote count  ${proposalVoteCount}`
-      );
-      index++;
-    } catch (e) {
-      hasProposal = false;
-    }
-  }
+  console.log(`Transaction completed. Hash: ${tx.hash}`);
 }
 
 main().catch((error) => {

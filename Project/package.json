@@ -10,7 +10,8 @@
     "typechain": "hh typechain",
     "test": "hh test",
     "deploy:local": "ts-node scripts/Ballot/deployment.ts localhost Pizza Lasagna Icecream",
-    "deploy:ropsten": "ts-node scripts/Ballot/deployment.ts ropsten Pizza Lasagna Icecream"
+    "deploy:ropsten": "ts-node scripts/Ballot/deployment.ts ropsten Pizza Lasagna Icecream",
+    "query:proposals": "ts-node scripts/Ballot/queryProposals.ts 0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5 ropsten"
   },
   "dependencies": {
     "chai": "^4.3.6",

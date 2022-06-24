@@ -25,7 +25,7 @@ npx solhint 'contracts/**/*.sol'
 npx solhint 'contracts/**/*.sol' --fix
 ```
 
-# Etherscan verification
+## Etherscan verification
 
 To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
 
@@ -36,11 +36,33 @@ hardhat run --network ropsten scripts/deploy.ts
 ```
 
 Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
+The constructor args "Pizza" "Lasagna" "Icecream" translates to the array:
+[
+'0x50697a7a61000000000000000000000000000000000000000000000000000000',
+'0x4c617361676e6100000000000000000000000000000000000000000000000000',
+'0x496365637265616d000000000000000000000000000000000000000000000000'
+]
 
 ```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
+yarn hardhat verify --network ropsten --constructor-args scripts/Ballot/constructorArgs.ts DEPLOYED_CONTRACT_ADDRESS
 ```
 
-# Performance optimizations
+## Performance optimizations
 
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+
+## Deployments
+
+[Etherscan](https://ropsten.etherscan.io/address/0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5)
+
+Using address 0x4bFC74983D6338D3395A00118546614bB78472c2
+Wallet balance 10.000001
+Deploying Ballot contract
+Proposals:
+Proposal N. 1: Pizza
+Proposal N. 2: Lasagna
+Proposal N. 3: Icecream
+Awaiting confirmations
+Completed
+Contract deployed at 0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5
+✨ Done in 30.60s.

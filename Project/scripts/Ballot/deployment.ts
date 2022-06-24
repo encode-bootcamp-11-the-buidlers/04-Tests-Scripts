@@ -1,6 +1,5 @@
 import "dotenv/config";
-import { Signer } from "ethers";
-import { ethers } from "hardhat";
+import { ethers } from "ethers";
 import * as ballotJson from "../../artifacts/contracts/Ballot.sol/Ballot.json";
 
 // This key is already public on Herong's Tutorial Examples - v1.03, by Dr. Herong Yang
@@ -25,13 +24,15 @@ async function main() {
       : new ethers.Wallet(process.env.PRIVATE_KEY ?? EXPOSED_KEY);
   console.log(`Using address ${wallet.address}`);
 
-  let signer: Signer;
+  let provider:
+    | ethers.providers.JsonRpcProvider
+    | ethers.providers.BaseProvider;
   if (network === "localhost") {
-    signer = (await ethers.getSigners())[0];
+    provider = new ethers.providers.JsonRpcProvider();
   } else {
-    const provider = ethers.providers.getDefaultProvider(network);
-    signer = wallet.connect(provider);
+    provider = ethers.providers.getDefaultProvider(network);
   }
+  const signer = wallet.connect(provider);
 
   const balanceBN = await signer.getBalance();
   const balance = Number(ethers.utils.formatEther(balanceBN));

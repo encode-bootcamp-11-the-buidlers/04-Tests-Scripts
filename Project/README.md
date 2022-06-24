@@ -66,3 +66,14 @@ Awaiting confirmations
 Completed
 Contract deployed at 0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5
 ✨ Done in 30.60s.
+
+## Local deployment
+
+You can use Hardhat Network in order to have a local Ethereum network node for development.
+
+To do so :
+
+1. Put this in your .env (default mnemonic for hardhat network accounts)
+```MNEMONIC=test test test test test test test test test test test junk```
+2. Run local node
+```yarn hardhat node```

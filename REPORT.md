@@ -5,7 +5,7 @@
 ## Team members:
 * Alok Sahay
 * Tobias
-* Luc
+* Lucien Akchoté
 * Godwin
 * //Victoire
 * //Swox

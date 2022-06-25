@@ -18,8 +18,8 @@
 # Weekend Project
 * Form groups of 3 to 5 students (presently 6 ✓)
 * Structure scripts to
-  * Deploy (✓ Deployment.ts)
-  * Query proposals (✓ QueryProposals.ts)
+  * Deploy (✓ deployment.ts)
+  * Query proposals (✓ queryProposals.ts)
   * Give vote right passing an address as input (✓ giveVotingRights.ts)
   * Cast a vote to a ballot passing contract address and proposal as input and using the wallet in environment (✓ castVote.ts)
   * Delegate my vote passing user address as input and using the wallet in environment (✓ delegateVote.ts)

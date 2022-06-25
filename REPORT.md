@@ -23,7 +23,7 @@
   * Give vote right passing an address as input (✓ giveVotingRights.ts)
   * Cast a vote to a ballot passing contract address and proposal as input and using the wallet in environment (✓ castVote.ts)
   * Delegate my vote passing user address as input and using the wallet in environment (✓ delegateVote.ts)
-  * Query voting result and print to console (✓ queryProposals.ts)
+  * Query voting result and print to console (✓ votingResult.ts)
 * Publish the project in Github (✓ github.com/encode-bootcamp-11-the-buidlers)
 * Run the scripts with a set of proposals, cast and delegate votes and inspect results (✓)
 * Write a report detailing the addresses, transaction hashes, description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results).

@@ -5,6 +5,9 @@ import { getSignerProvider, getWallet } from "./utils";
 
 async function main() {
   const contractAddress = process.argv[2];
+  if (!contractAddress) {
+    throw new Error("Contract address needs to be specified.");
+  }
   const network = process.argv[3] || "localhost";
 
   const wallet = getWallet();

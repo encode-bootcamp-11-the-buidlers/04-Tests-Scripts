@@ -14,9 +14,14 @@ function convertStringArrayToBytes32(array: string[]) {
   return bytes32Array;
 }
 
-async function giveRightToVote(ballotContract: Ballot, voterAddress: any, signer?: Signer) {
-  const tx = (signer) ? await ballotContract.connect(signer).giveRightToVote(voterAddress) 
-  : await ballotContract.giveRightToVote(voterAddress);
+async function giveRightToVote(
+  ballotContract: Ballot,
+  voterAddress: any,
+  signer?: Signer
+) {
+  const tx = signer
+    ? await ballotContract.connect(signer).giveRightToVote(voterAddress)
+    : await ballotContract.giveRightToVote(voterAddress);
   await tx.wait();
 }
 
@@ -40,7 +45,9 @@ describe("Ballot", function () {
 
   beforeEach(async function () {
     accounts = await ethers.getSigners();
-    const ballotFactory = (await ethers.getContractFactory("Ballot")) as Ballot__factory;
+    const ballotFactory = (await ethers.getContractFactory(
+      "Ballot"
+    )) as Ballot__factory;
     ballotContract = await ballotFactory.deploy(
       convertStringArrayToBytes32(PROPOSALS)
     );
@@ -104,47 +111,60 @@ describe("Ballot", function () {
 
   describe("when the voter interact with the vote function in the contract", function () {
     it("should has the right to vote", async function () {
-        await expect(vote(ballotContract, accounts[1], 0)).to.be.revertedWith("Has no right to vote");
+      await expect(vote(ballotContract, accounts[1], 0)).to.be.revertedWith(
+        "Has no right to vote"
+      );
     });
 
     it("should has not already voted", async function () {
-       await vote(ballotContract, accounts[0], 0);
-       await expect(vote(ballotContract, accounts[0], 1)).to.be.revertedWith("Already voted.");
+      await vote(ballotContract, accounts[0], 0);
+      await expect(vote(ballotContract, accounts[0], 1)).to.be.revertedWith(
+        "Already voted."
+      );
     });
   });
 
   describe("when the voter interact with the delegate function in the contract", function () {
     it("should has not already voted", async function () {
       await vote(ballotContract, accounts[0], 0);
-      await expect(delegate(ballotContract, accounts[0], accounts[1].address)).to.be.revertedWith("You already voted.");
-   });
+      await expect(
+        delegate(ballotContract, accounts[0], accounts[1].address)
+      ).to.be.revertedWith("You already voted.");
+    });
 
-   it("can not self-delegate", async function () {
-    await expect(delegate(ballotContract, accounts[0], accounts[0].address)).to.be.revertedWith("Self-delegation is disallowed.");
+    it("can not self-delegate", async function () {
+      await expect(
+        delegate(ballotContract, accounts[0], accounts[0].address)
+      ).to.be.revertedWith("Self-delegation is disallowed.");
     });
   });
 
   describe("when the an attacker interact with the giveRightToVote function in the contract", function () {
     it("can not give voting rights", async function () {
-      await expect(giveRightToVote(ballotContract, accounts[2].address, accounts[1]))
-      .to.be.revertedWith("Only chairperson can give right to vote.");
+      await expect(
+        giveRightToVote(ballotContract, accounts[2].address, accounts[1])
+      ).to.be.revertedWith("Only chairperson can give right to vote.");
     });
   });
 
   describe("when the an attacker interact with the vote function in the contract", function () {
     describe("and the proposal does not exist", function () {
       it("should revert all the state changes", async function () {
-        await expect(vote(ballotContract, accounts[0], 1337)).to.be.revertedWith("");
+        await expect(
+          vote(ballotContract, accounts[0], 1337)
+        ).to.be.revertedWith("");
       });
-    })
+    });
   });
 
   describe("when the an attacker interact with the delegate function in the contract", function () {
     it("can not produce loop in delegation", async function () {
       await giveRightToVote(ballotContract, accounts[1].address);
       await delegate(ballotContract, accounts[0], accounts[1].address);
-      await expect(delegate(ballotContract, accounts[1], accounts[0].address)).to.be.revertedWith("Found loop in delegation.");
-      });
+      await expect(
+        delegate(ballotContract, accounts[1], accounts[0].address)
+      ).to.be.revertedWith("Found loop in delegation.");
+    });
   });
 
   describe("when someone interact with the winningProposal function before any votes are cast", function () {
@@ -165,7 +185,7 @@ describe("Ballot", function () {
   describe("when someone interact with the winnerName function before any votes are cast", function () {
     it("should return the first proposal name", async function () {
       const winnerName = await ballotContract.winnerName();
-      expect(ethers.utils.parseBytes32String(winnerName)).to.eq("Proposal 1");    
+      expect(ethers.utils.parseBytes32String(winnerName)).to.eq("Proposal 1");
     });
   });
 
@@ -173,32 +193,32 @@ describe("Ballot", function () {
     it("should return the first proposal name", async function () {
       await vote(ballotContract, accounts[0], 0);
       const winnerName = await ballotContract.winnerName();
-      expect(ethers.utils.parseBytes32String(winnerName)).to.eq("Proposal 1");    
+      expect(ethers.utils.parseBytes32String(winnerName)).to.eq("Proposal 1");
     });
   });
 
   describe("when someone interact with the winningProposal function and winnerName after 5 random votes are cast for the proposals", function () {
     it("should return the index and the name of the proposal with highest votes count", async function () {
-        await giveRightToVote(ballotContract, accounts[1].address);
-        await giveRightToVote(ballotContract, accounts[2].address);
-        await giveRightToVote(ballotContract, accounts[3].address);
-        await giveRightToVote(ballotContract, accounts[4].address);
+      await giveRightToVote(ballotContract, accounts[1].address);
+      await giveRightToVote(ballotContract, accounts[2].address);
+      await giveRightToVote(ballotContract, accounts[3].address);
+      await giveRightToVote(ballotContract, accounts[4].address);
 
-        // Proposal 2 should be the proposal with highest votes count
-        await vote(ballotContract, accounts[0], 0);
-        await vote(ballotContract, accounts[1], 1);
-        await vote(ballotContract, accounts[2], 2);
-        await vote(ballotContract, accounts[3], 2);
-        await vote(ballotContract, accounts[4], 2);
+      // Proposal 2 should be the proposal with highest votes count
+      await vote(ballotContract, accounts[0], 0);
+      await vote(ballotContract, accounts[1], 1);
+      await vote(ballotContract, accounts[2], 2);
+      await vote(ballotContract, accounts[3], 2);
+      await vote(ballotContract, accounts[4], 2);
 
-        const winningProposal = await ballotContract.winningProposal();
-        const winnerName = await ballotContract.winnerName();
-        const indexWithHighestVotes = 2;
-        const proposal = await ballotContract.proposals(indexWithHighestVotes);
+      const winningProposal = await ballotContract.winningProposal();
+      const winnerName = await ballotContract.winnerName();
+      const indexWithHighestVotes = 2;
+      const proposal = await ballotContract.proposals(indexWithHighestVotes);
 
-        expect(winnerName).to.eq(proposal.name); 
-        expect(winningProposal).to.eq(indexWithHighestVotes);
-        expect(proposal.voteCount).to.eq(3);
+      expect(winnerName).to.eq(proposal.name);
+      expect(winningProposal).to.eq(indexWithHighestVotes);
+      expect(proposal.voteCount).to.eq(3);
     });
   });
 });

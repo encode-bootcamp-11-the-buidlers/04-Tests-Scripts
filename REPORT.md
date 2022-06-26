@@ -159,4 +159,3 @@ Getting the winning proposal index
 Fetching winning proposal struct data
 Winning proposal name : Icecream, current vote count : 2
 ```
->>>>>>> b78c4ac31ab87574babd9419b5314fc7e9ee0f88

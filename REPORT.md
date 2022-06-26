@@ -29,7 +29,8 @@
   - Query voting result and print to console (✓ votingResult.ts)
 - Publish the project in Github (✓ github.com/encode-bootcamp-11-the-buidlers)
 - Run the scripts with a set of proposals, cast and delegate votes and inspect results (✓)
-- Write a report detailing the addresses, transaction hashes, description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results).
+- Write a report detailing the addresses, transaction hashes, description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results). (✓)
+- (Extra) Use TDD methodology (✓)
 
 ## Operation logs
 

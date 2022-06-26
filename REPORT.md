@@ -3,12 +3,9 @@
 ## Team name: The Buidlers
 
 ## Team members:
-* Alok Sahay
 * Tobias Leinss <caruso33@web.de>
-* Lucien Akchoté
-* Godwin
-* //Victoire
-* //Swox
+* Lucien Akchoté <l.akchote@gmail.com>
+* Alok Sahay <alok.sahay87@gmail.com>
 
 ## Deploying contract
 * Address of deployed contract: 0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5
@@ -16,7 +13,7 @@
 * Explorer: https://ropsten.etherscan.io/address/0xEf6d29dDFf75C3aC09C7AA37B3ea58aA2Bb24EB5#code
 
 # Weekend Project
-* Form groups of 3 to 5 students (presently 6 ✓)
+* Form groups of 3 to 5 students (Currently 3 ✓)
 * Structure scripts to
   * Deploy (✓ deployment.ts)
   * Query proposals (✓ queryProposals.ts)
@@ -28,6 +25,3 @@
 * Run the scripts with a set of proposals, cast and delegate votes and inspect results (✓)
 * Write a report detailing the addresses, transaction hashes, description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results).
 
-# Missing
-
-Description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results).

@@ -7,11 +7,11 @@ async function main() {
   const contractAddress = process.argv[2];
   if (!contractAddress) {
     throw new Error("Contract address needs to be specified.");
-}
+  }
   const delegateAddress = process.argv[3];
   if (!delegateAddress) {
     throw new Error("Delegate address needs to be specified.");
-}
+  }
   const network = process.argv[4] || "localhost";
 
   const wallet = getWallet();

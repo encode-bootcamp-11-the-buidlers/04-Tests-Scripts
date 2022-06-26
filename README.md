@@ -134,3 +134,5 @@ yarn run ts-node --files .\scripts\Ballot\deployment.ts "arg1" "arg2" "arg3
 * Run the scripts with a set of proposals, cast and delegate votes and inspect results
 * Write a report detailing the addresses, transaction hashes, description of the operation script being executed and console output from script execution for each step (Deployment, giving voting rights, casting/delegating and querying results).
 * (Extra) Use TDD methodology
+
+See [REPORT](./REPORT.md) for solutions.

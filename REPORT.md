@@ -145,7 +145,7 @@ Proposal with index 2, new vote count : 2, tx hash : 0x4e1b3891199c1683081ca441e
 ```shell
 ❯ ts-node scripts/Ballot/queryProposals.ts 0xee5cF4Cc94bb97E2bA0d0a115b69c6075Ce42DD1 ropsten
 Using address 0x4bFC74983D6338D3395A00118546614bB78472c2
-Proposal 0: Pizza, vote count  0
+Proposal 0: Pizza, vote count  1
 Proposal 1: Lasagna, vote count  1
 Proposal 2: Icecream, vote count  2
 ```

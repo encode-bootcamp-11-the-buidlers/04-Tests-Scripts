@@ -118,6 +118,7 @@ yarn run hardhat .\scripts\Ballot\deployment.ts
 yarn run ts-node --files .\scripts\Ballot\deployment.ts "arg1" "arg2" "arg3
 ```
 # Homework
+* Create Github Issues with your questions about this lesson
 * Read the references
 * Finish covering other operations with scripts
 

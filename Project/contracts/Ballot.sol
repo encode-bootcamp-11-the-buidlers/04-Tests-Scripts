@@ -7,9 +7,9 @@ contract Ballot {
     // be used for variables later.
     // It will represent a single voter.
     struct Voter {
-        uint256 weight; // weight is accumulated by delegation
         bool voted; // if true, that person already voted
         address delegate; // person delegated to
+        uint256 weight; // weight is accumulated by delegation
         uint256 vote; // index of the voted proposal
     }
 

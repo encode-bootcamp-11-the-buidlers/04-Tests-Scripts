@@ -7,10 +7,10 @@ contract Ballot {
     // be used for variables later.
     // It will represent a single voter.
     struct Voter {
-        uint256 weight; // weight is accumulated by delegation
+        uint192 weight; // weight is accumulated by delegation
         bool voted; // if true, that person already voted
         address delegate; // person delegated to
-        uint256 vote; // index of the voted proposal
+        uint64 vote; // index of the voted proposal
     }
 
     // This is a type for a single proposal.
@@ -110,7 +110,7 @@ contract Ballot {
 
     /// Give your vote (including votes delegated to you)
     /// to proposal `proposals[proposal].name`.
-    function vote(uint256 proposal) external {
+    function vote(uint64 proposal) external {
         Voter storage sender = voters[msg.sender];
         require(sender.weight != 0, "Has no right to vote");
         require(!sender.voted, "Already voted.");
@@ -126,8 +126,10 @@ contract Ballot {
     /// @dev Computes the winning proposal taking all
     /// previous votes into account.
     function winningProposal() public view returns (uint256 winningProposal_) {
+        Proposal[] memory proposals_ = proposals;
+
         uint256 winningVoteCount = 0;
-        for (uint256 p = 0; p < proposals.length; p++) {
+        for (uint256 p = 0; p < proposals_.length; p++) {
             if (proposals[p].voteCount > winningVoteCount) {
                 winningVoteCount = proposals[p].voteCount;
                 winningProposal_ = p;

@@ -7,9 +7,9 @@ contract Ballot {
     // be used for variables later.
     // It will represent a single voter.
     struct Voter {
-        uint256 weight; // weight is accumulated by delegation
         bool voted; // if true, that person already voted
         address delegate; // person delegated to
+        uint256 weight; // weight is accumulated by delegation
         uint256 vote; // index of the voted proposal
     }
 
@@ -127,9 +127,11 @@ contract Ballot {
     /// previous votes into account.
     function winningProposal() public view returns (uint256 winningProposal_) {
         uint256 winningVoteCount = 0;
-        for (uint256 p = 0; p < proposals.length; p++) {
-            if (proposals[p].voteCount > winningVoteCount) {
-                winningVoteCount = proposals[p].voteCount;
+        // Gas optimization
+        Proposal[] memory localProposals = proposals;
+        for (uint256 p = 0; p < localProposals.length; p++) {
+            if (localProposals[p].voteCount > winningVoteCount) {
+                winningVoteCount = localProposals[p].voteCount;
                 winningProposal_ = p;
             }
         }

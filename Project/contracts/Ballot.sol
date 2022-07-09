@@ -7,7 +7,8 @@ pragma solidity >=0.7.0 <0.9.0;
 /// @dev You're gonna make it
 contract Ballot {    
     /**
-     * @dev This declares a new complex type which will be used for variables later. It represents a single voter.    
+     * @dev This declares a new complex type which will be used for variables later. It represents a single voter.
+     * Below are the properties of this data type    
      * - voted: if true, that person already voted
      * - delegate: user delegated to
      * - weight: accumulated by delegation
@@ -37,6 +38,7 @@ contract Ballot {
     Proposal[] public proposals;
 
     /// @dev Create a new ballot to choose one of `proposalNames`.
+    /// @param proposalNames Proposals are names for different proposals which will be voted upon in the contract
     constructor(bytes32[] memory proposalNames) {
         chairperson = msg.sender;
         voters[chairperson].weight = 1;
@@ -47,7 +49,7 @@ contract Ballot {
         }
     }
 
-    /// @notice Give `voter` the right to vote on this ballot. This may only be called by `chairperson`.
+    /// @dev Give `voter` the right to vote on this ballot. This may only be called by `chairperson`.
     /// @param voter Voter is the address of the voter
     function giveRightToVote(address voter) external {
         /**
